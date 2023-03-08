@@ -5,13 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Organizador de Dividas</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header id="header">
         <button class="header-btn">Despesas</button>
+        <div id="divisor"></div>
         <button class="header-btn">Categorias</button>
     </header>
+    <main class="row" id="corpo">
+        <div id="cards"class='col-8'>
+            <div class="card" id="pago"><h4>total pago</h4></div>
+            <div class="card" id="pagar"></div>
+            <div class="card" id="atrasado"></div>
+        </div>
+    </main>
     <script src="script/script.js"></script>
 </body>
 </html>

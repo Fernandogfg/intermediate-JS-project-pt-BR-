@@ -1,1 +1,18 @@
+@import url(grid.css);
+@import url(variaveis.css);
 @import url(header.css);
+@import url(cards.css);
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+#filler {
+  height: 10000px;
+}
+#corpo {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,29 @@
+#header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background-color: var(--header-bg-color);
+  height: 4vw;
+  justify-content: right;
+  gap: 1em;
+  box-shadow: 0px 0.5em 0.2em rgba(0, 0, 0, 0.11);
+}
+#divisor {
+  height: 50%;
+  width: 1px;
+  background-color: var(--header-text-color);
+  align-self: center;
+}
+.header-btn {
+  background-color: var(--header-bg-color);
+  transition: background-color 0.5s;
+  width: 12em;
+  border: 0;
+  font-size: 1.2em;
+  color: var(--header-text-color);
+}
+.header-btn:hover {
+  transition: 0.5s;
+  background-color: var(--header-bg-color-hover);
+  cursor: pointer;
+}
