@@ -1,0 +1,27 @@
+#container-lista {
+  display: grid;
+  gap: 16px;
+}
+#lista {
+  width: 100%;
+  border-spacing: 0px;
+}
+#lista td {
+  width: 25%;
+  padding: 16px 4px;
+}
+#lista thead {
+  background-color: var(--tabela-cel-escura);
+  font-size: larger;
+}
+
+#lista tbody tr:nth-child(odd) {
+  background-color: var(--tabela-cel-clara);
+}
+#lista tbody tr:nth-child(even) {
+  background-color: var(--tabela-cel-escura);
+}
+#lista p {
+  margin: 0;
+  border-right: 1px solid rgb(218, 216, 216);
+}

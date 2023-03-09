@@ -1,25 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Organizador de Dividas</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <header id="header">
-        <button class="header-btn">Despesas</button>
-        <div id="divisor"></div>
-        <button class="header-btn">Categorias</button>
+      <button class="header-btn">Despesas</button>
+      <div id="divisor"></div>
+      <button class="header-btn">Categorias</button>
     </header>
     <main class="row" id="corpo">
-        <div id="cards"class='col-8'>
-            <div class="card" id="pago"><h4>total pago</h4></div>
-            <div class="card" id="pagar"></div>
-            <div class="card" id="atrasado"></div>
+      <div class="col-2"></div>
+      <div id="cards" class="col-8">
+        <div class="card" id="pago">
+          Total Pago
+          <div id="qnt-pago">0</div>
         </div>
+        <div class="card" id="pagar">
+          Total a pagar
+          <div id="qnt-pagar">0</div>
+        </div>
+        <div class="card" id="atrasado">
+          Atrasadas
+          <div id="qnt-atrasado">0</div>
+        </div>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-3"></div>
+      <section class="col-6" id="container-lista">
+        <div id="container-filtro">
+          <label for="input-filtro">Filtrar</label><br /><input
+            type="text"
+            id="input-filtro"
+          /><button id="btn-filtro">Filtrar</button>
+        </div>
+        <div >
+          <table id="lista">
+            <thead >
+              <tr>
+                <td><p>Data de Vencimento</p></td>
+                <td><p>Despesa</p></td>
+                <td><p>Valor</p></td>
+                <td><p>status</p></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+              
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <div class="col-3"></div>
     </main>
     <script src="script/script.js"></script>
-</body>
+  </body>
 </html>

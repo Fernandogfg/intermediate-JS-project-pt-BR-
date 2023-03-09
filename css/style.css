@@ -2,6 +2,7 @@
 @import url(variaveis.css);
 @import url(header.css);
 @import url(cards.css);
+@import url(lista.css);
 
 body {
   padding: 0;
@@ -9,10 +10,8 @@ body {
   width: 100%;
   height: 100%;
 }
-#filler {
-  height: 10000px;
-}
 #corpo {
   width: 100%;
   height: 100%;
+  padding-top: 32px;
 }
