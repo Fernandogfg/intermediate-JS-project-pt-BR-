@@ -2,26 +2,30 @@
   display: grid;
   gap: 16px;
 }
-#lista {
+.lista {
+  margin-top: 64px;
   width: 100%;
   border-spacing: 0px;
 }
-#lista td {
+.lista td {
   width: 25%;
   padding: 16px 4px;
 }
-#lista thead {
+.lista thead {
   background-color: var(--tabela-cel-escura);
   font-size: larger;
 }
 
-#lista tbody tr:nth-child(odd) {
+.lista tbody tr:nth-child(odd) {
   background-color: var(--tabela-cel-clara);
 }
-#lista tbody tr:nth-child(even) {
+.lista tbody tr:nth-child(even) {
   background-color: var(--tabela-cel-escura);
 }
-#lista p {
+.lista p {
   margin: 0;
   border-right: 1px solid rgb(218, 216, 216);
+}
+#add-despesa {
+  justify-self: end;
 }

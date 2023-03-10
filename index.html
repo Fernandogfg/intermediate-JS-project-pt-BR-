@@ -9,9 +9,11 @@
   </head>
   <body>
     <header id="header">
-      <button class="header-btn">Despesas</button>
+      <button class="header-btn"><a href="index.html">Despesas</a></button>
       <div id="divisor"></div>
-      <button class="header-btn">Categorias</button>
+      <button class="header-btn">
+        <a href="html/categorias.html">Categorias</a>
+      </button>
     </header>
     <main class="row" id="corpo">
       <div class="col-2"></div>
@@ -32,33 +34,62 @@
       <div class="col-2"></div>
       <div class="col-3"></div>
       <section class="col-6" id="container-lista">
-        <div id="container-filtro">
-          <label for="input-filtro">Filtrar</label><br /><input
+        <div id="container-filtro" class="filtro">
+          <label for="input-filtro-despesa">Filtrar</label><br /><input
             type="text"
-            id="input-filtro"
-          /><button id="btn-filtro">Filtrar</button>
+            id="input-filtro-despesa"
+            class="input-filtro"
+          /><button id="btn-filtrar-despesas" class="btn">Filtrar</button>
         </div>
-        <div >
-          <table id="lista">
-            <thead >
-              <tr>
-                <td><p>Data de Vencimento</p></td>
-                <td><p>Despesa</p></td>
-                <td><p>Valor</p></td>
-                <td><p>status</p></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              
-              </tr>
-            </tbody>
-          </table>
+        <!-- <div >S -->
+        <table class="lista">
+          <thead>
+            <tr>
+              <td><p>Data de Vencimento</p></td>
+              <td><p>Despesa</p></td>
+              <td><p>Valor</p></td>
+              <td><p>status</p></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- </div>S -->
+        <button id="add-despesa" class="btn">Adicionar despesa</button>
+      </section>
+      <section class="inattivo" id="despesas">
+        <div class="cobertura"></div>
+        <div class="modal">
+          <h3>Cadastro de Categorias</h3>
+          <div id="input-filtro-categorias" class="filtro">
+            <label for="">Filtrar</label><br /><input
+              type="text"
+              id="input-filtro-categorias"
+              class="input-filtro"
+            /><button id="btn-filtrar-categorias" class="btn">Filtrar</button>
+            <table class="lista">
+              <thead>
+                <tr>
+                  <td><p>ID</p></td>
+                  <td><p>Categoria</p></td>
+                  <td><p>Ações</p></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
       <div class="col-3"></div>
