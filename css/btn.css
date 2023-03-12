@@ -33,6 +33,7 @@
   background-color: #feeaea;
 }
 #btn-add-categoria {
+  margin-top: 16px;
   justify-self: end;
 }
 #btn-add-despesa {
