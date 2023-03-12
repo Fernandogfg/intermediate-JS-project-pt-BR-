@@ -1,14 +1,19 @@
-.filtro label {
-  font-size: small;
-}
-.input-filtro {
+
+.format-inputs input {
   height: 36px;
   width: 40ch;
   border: 0;
   border-bottom: 1px black solid;
   font-size: larger;
+  margin-bottom: 32px;
 }
-.input-filtro:focus {
+.format-inputs input::placeholder {
+  font-size: medium;
+}
+.format-inputs label {
+  font-size: smaller;
+}
+.format-inputs input:focus {
   outline: 0;
   background: linear-gradient(
     180deg,
