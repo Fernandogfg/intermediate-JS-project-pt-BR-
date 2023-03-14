@@ -142,3 +142,16 @@ headerBtnDespesas.addEventListener("click", function () {
   }
 });
 
+[btnAddDespesa, fadeDespesas].forEach((el) => {
+  el.addEventListener("click", function () {
+    alternaModal(modalDespesas);
+    escModal(modalDespesas);
+  });
+});
+
+[btnAddCategoria, fadeAddCategorias].forEach((el) => {
+  el.addEventListener("click", function () {
+    alternaModal(modalAddCategorias);
+    escModal(modalAddCategorias);
+  });
+});
