@@ -9,9 +9,9 @@
   </head>
   <body>
     <header id="header">
-      <button class="header-btn">Despesas</button>
+      <button class="header-btn" id="header-btn-despesas">Despesas</button>
       <div id="divisor"></div>
-      <button class="header-btn">Categorias</button>
+      <button class="header-btn" id="header-btn-categorias">Categorias</button>
     </header>
     <main class="row" id="corpo">
       <div class="col-2"></div>
@@ -48,17 +48,18 @@
               <td><p>status</p></td>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tabela-despesas">
             <tr>
               <td>-</td>
               <td>-</td>
               <td>-</td>
-              <td>-</td>
+              <td onclick="oi()">-</td>
             </tr>
           </tbody>
         </table>
         <button id="btn-add-despesa" class="btn">Adicionar despesa</button>
-        <div class="inativo borrao">
+        <div class="inativo" id="modal-add-despesas">
+          <div class="borrao" id="fade-despesas"></div>
           <div class="modal format-inputs">
             <h3>Adicionar Despesa</h3>
 
@@ -84,18 +85,20 @@
               placeholder="Valor da despesa"
             />
             <div class="container-btns">
-              <button class="btn">Salvar</button>
-              <button class="btn-vermelho">Cancelar</button>
+              <button class="btn" id="btn-salvar-despesa">Salvar</button>
+              <button class="btn-vermelho" id="btn-cancelar-despesa">
+                Cancelar
+              </button>
             </div>
           </div>
         </div>
       </section>
       <section class="inativo" id="categorias">
-        <div class="cobertura"></div>
+        <div class="cobertura" id="fade-categorias"></div>
         <div class="modal format-inputs">
           <h3>Categorias</h3>
           <div>
-            <label for="">Filtrar</label>
+            <label for="input-filtro-categorias">Filtrar</label>
             <br />
             <input type="text" id="input-filtro-categorias" />
             <button id="btn-filtrar-categorias" class="btn">Filtrar</button>
@@ -120,14 +123,17 @@
             Adicionar categoria
           </button>
         </div>
-        <div class="inativo borrao">
+        <div class="inativo" id="add-categorias">
+          <div class="borrao" id="fade-add-categorias"></div>
           <div class="modal format-inputs">
             <h3>Adicionar categoria</h3>
             <label for="input-add-categoria">Categoria</label>
             <input type="text" id="input-add-categoria" />
             <div class="container-btns">
-              <button class="btn">Salvar</button>
-              <button class="btn-vermelho">Cancelar</button>
+              <button class="btn" id="btn-salvar-categoria">Salvar</button>
+              <button class="btn-vermelho" id="btn-cancelar-categoria">
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

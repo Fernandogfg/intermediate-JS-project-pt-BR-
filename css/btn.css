@@ -50,3 +50,25 @@
   gap: 16px;
   justify-content: center;
 }
+.pago {
+  color: green;
+}
+.pago button {
+  background-color: green;
+  border-radius: 4px;
+  border: 0;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: white;
+}
+.pendente {
+  color: red;
+}
+.pendente button {
+  background-color: red;
+  border-radius: 4px;
+  border: 0;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: white;
+}
