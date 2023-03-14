@@ -1,7 +1,7 @@
 let headerBtnDespesas = document.getElementById("header-btn-despesas");
 let headerBtnCategorias = document.getElementById("header-btn-categorias");
 let modalDespesas = document.getElementById("modal-add-despesas");
-let modalCategorias = document.getElementById("categorias");
+let containerCategorias = document.getElementById("categorias");
 let modalAddCategorias = document.getElementById("add-categorias");
 let btnAddDespesa = document.getElementById("btn-add-despesa");
 let btnAddCategoria = document.getElementById("btn-add-categoria");
@@ -11,9 +11,44 @@ let btnSalvarCategoria = document.getElementById("btn-salvar-categoria");
 let btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 let fadeDespesas = document.getElementById("fade-despesas");
 let fadeAddCategorias = document.getElementById("fade-add-categorias");
-let fadeCategorias = document.getElementById("fade-categorias");
 let tabelaDespesas = document.getElementById("tabela-despesas");
+let containerLista = document.getElementById("container-lista");
 let listaDespesas = [
+  {
+    dataVencimento: "18/03/2023",
+    despesa: "lanche",
+    valor: "127.58",
+    status: true,
+    categoria: "alimentação",
+  },
+  {
+    dataVencimento: "01/03/2023",
+    despesa: "viajem",
+    valor: "17.58",
+    status: false,
+    categoria: "lazer",
+  },
+  {
+    dataVencimento: "07/08/2022",
+    despesa: "compras",
+    valor: "79.2",
+    status: false,
+    categoria: "alimentação",
+  },
+  {
+    dataVencimento: "10/10/2022",
+    despesa: "cinema",
+    valor: "50.0",
+    status: true,
+    categoria: "lazer",
+  },
+  {
+    dataVencimento: "11/03/2023",
+    despesa: "luz",
+    valor: "150.00",
+    status: true,
+    categoria: "conta",
+  },
   {
     dataVencimento: "18/03/2023",
     despesa: "lanche",
@@ -93,23 +128,17 @@ function escModal(modal) {
 
 imprimeListaDespesas(listaDespesas);
 
-[btnAddDespesa, fadeDespesas].forEach((el) => {
-  el.addEventListener("click", function () {
-    alternaModal(modalDespesas);
-    escModal(modalDespesas);
-  });
+headerBtnCategorias.addEventListener("click", function () {
+  if (containerCategorias.classList.contains("inativo")) {
+    alternaModal(containerCategorias);
+    alternaModal(containerLista);
+  }
 });
 
-[headerBtnCategorias, fadeCategorias].forEach((el) => {
-  el.addEventListener("click", function () {
-    alternaModal(modalCategorias);
-    escModal(modalCategorias);
-  });
+headerBtnDespesas.addEventListener("click", function () {
+  if (containerLista.classList.contains("inativo")) {
+    alternaModal(containerCategorias);
+    alternaModal(containerLista);
+  }
 });
 
-[btnAddCategoria, fadeAddCategorias].forEach((el) => {
-  el.addEventListener("click", function () {
-    alternaModal(modalAddCategorias);
-    escModal(modalAddCategorias);
-  });
-});

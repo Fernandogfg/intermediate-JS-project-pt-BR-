@@ -7,9 +7,8 @@
 @import url(btn.css);
 @import url(modal.css);
 
-
 body {
-  padding: 0;
+  padding: 0 0 64px 0;
   margin: 0;
   width: 100%;
   height: 100%;
@@ -20,5 +19,5 @@ body {
   padding-top: 32px;
 }
 .inativo {
-  display: none;
+  display: none !important;
 }

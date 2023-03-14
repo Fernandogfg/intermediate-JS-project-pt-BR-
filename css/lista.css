@@ -11,6 +11,7 @@
 .lista td {
   width: 25%;
   padding: 16px 4px;
+  
 }
 .lista thead {
   background-color: var(--tabela-cel-escura);
