@@ -50,16 +50,12 @@ let listaDespesas = [
     categoria: "conta",
   },
 ];
-function oi() {
-  console.log("oi");
-}
+
 //criação de funções
 
-//função pra alterar classe usando for each
-
 function alternaStatus(i) {
-  listaDespesas[i].status = !listaDespesas[i].status
-  imprimeListaDespesas(listaDespesas)
+  listaDespesas[i].status = !listaDespesas[i].status;
+  imprimeListaDespesas(listaDespesas);
 }
 
 function imprimeListaDespesas(lista) {
@@ -72,7 +68,9 @@ function imprimeListaDespesas(lista) {
     <td>${lista[i].dataVencimento}</td>
     <td>${lista[i].despesa}</td>
     <td>${lista[i].valor}</td>
-    <td><button onclick='alternaStatus(${i})'>${lista[i].status ? "PAGO" : "PENDENTE"}</button></td>
+    <td><button onclick='alternaStatus(${i})'>${
+      lista[i].status ? "PAGO" : "PENDENTE"
+    }</button></td>
   </tr>`;
   }
 }
