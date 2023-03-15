@@ -148,7 +148,9 @@ function imprimeListaCategorias(lista) {
     tabelaCategorias.innerHTML += `<tr>
     <td>${lista[i].id}</td>
     <td>${lista[i].nome}</td>
-    <td class="container-btns"><button class="btn" onclick='editaCategoria(${i})'>EDITAR</button><button onclick='removeElemento(${i})' class="btn-vermelho">EXCLUIR</button></td>
+    <td class="container-btns">
+    <button class="btn" onclick='editaCategoria(${i})'>EDITAR</button>
+    <button onclick='removeElemento(${i})' class="btn-vermelho">EXCLUIR</button></td>
     </tr>`;
   }
 }
@@ -183,23 +185,18 @@ function removeElemento(i) {
 function editaCategoria(i){
   alternaModal(modalEditarCategoria)
   inputEditarCategoria.value = listaCategorias[i].nome
-  fadeEditarCategoria.addEventListener('click', function(){
-    alternaModal(modalEditarCategoria)
-  })
   escModal(modalEditarCategoria)
   salvarEdicao(i)
   
 }
 function salvarEdicao(i){
-  if(inputEditarCategoria.value !== ''){
     btnSalvarEdicao.addEventListener('click', function(){
-      let nome = inputEditarCategoria.value
-      listaCategorias[i].nome = nome
+      listaCategorias[i].nome = inputEditarCategoria.value
       alternaModal(modalEditarCategoria)
       imprimeListaCategorias(listaCategorias)
       imprimeListaDespesas(listaDespesas)
-    })
-  }
+
+  })
 }
 //Chamadas de funções
 
@@ -239,4 +236,7 @@ btnSalvarCategoria.addEventListener("click", function () {
   imprimeListaCategorias(listaCategorias);
   alternaModal(modalAddCategorias);
 });
+fadeEditarCategoria.addEventListener('click', function(){
+  alternaModal(modalEditarCategoria)
+})
 
