@@ -27,7 +27,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(10px);
 }
 h3 {
   justify-self: center;

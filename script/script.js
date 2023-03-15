@@ -3,23 +3,23 @@ let headerBtnCategorias = document.getElementById("header-btn-categorias");
 let modalDespesas = document.getElementById("modal-add-despesas");
 let containerCategorias = document.getElementById("categorias");
 let modalAddCategorias = document.getElementById("add-categorias");
-let modalEditarCategoria = document.getElementById('editar-categoria')
+let modalEditarCategoria = document.getElementById("editar-categoria");
 let tabelaDespesas = document.getElementById("tabela-despesas");
 let containerLista = document.getElementById("container-lista");
 let tabelaCategorias = document.getElementById("lista-categorias");
 let fadeDespesas = document.getElementById("fade-despesas");
 let fadeAddCategorias = document.getElementById("fade-add-categorias");
-let fadeEditarCategoria = document.getElementById('fade-editar-categorias')
+let fadeEditarCategoria = document.getElementById("fade-editar-categorias");
 let btnAddDespesa = document.getElementById("btn-add-despesa");
 let btnAddCategoria = document.getElementById("btn-add-categoria");
 let btnSalvarDespesa = document.getElementById("btn-salvar-despesa");
 let btnCancelarDespesa = document.getElementById("btn-cancelar-despesa");
 let btnSalvarCategoria = document.getElementById("btn-salvar-categoria");
 let btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
-let btnSalvarEdicao = document.getElementById('btn-salvar-edicao')
-let btnCancelarEdicao = document.getElementById('btn-cancelar-edicao')
+let btnSalvarEdicao = document.getElementById("btn-salvar-edicao");
+let btnCancelarEdicao = document.getElementById("btn-cancelar-edicao");
 let inputAddCategoria = document.getElementById("input-add-categoria");
-let inputEditarCategoria = document.getElementById('input-editar-categoria')
+let inputEditarCategoria = document.getElementById("input-editar-categoria");
 let listaCategorias = [
   {
     nome: "Alimentação",
@@ -119,10 +119,9 @@ function alternaStatus(i) {
   imprimeListaDespesas(listaDespesas);
 }
 
-
 function imprimeListaDespesas(lista) {
   tabelaDespesas.innerHTML = "";
-  
+
   for (let i = 0; i < lista.length; i++) {
     tabelaDespesas.innerHTML += `<tr class= '${
       lista[i].status ? "pago" : "pendente"
@@ -149,7 +148,7 @@ function imprimeListaCategorias(lista) {
     <td>${lista[i].id}</td>
     <td>${lista[i].nome}</td>
     <td class="container-btns">
-    <button class="btn" onclick='editaCategoria(${i})'>EDITAR</button>
+    <button class="btn" onclick='editaCategoria(${lista[i].id})'>EDITAR</button>
     <button onclick='removeElemento(${i})' class="btn-vermelho">EXCLUIR</button></td>
     </tr>`;
   }
@@ -182,21 +181,28 @@ function removeElemento(i) {
   listaCategorias.splice(i, 1);
   imprimeListaCategorias(listaCategorias);
 }
-function editaCategoria(i){
-  alternaModal(modalEditarCategoria)
-  inputEditarCategoria.value = listaCategorias[i].nome
-  escModal(modalEditarCategoria)
-  salvarEdicao(i)
-  
-}
-function salvarEdicao(i){
-    btnSalvarEdicao.addEventListener('click', function(){
-      listaCategorias[i].nome = inputEditarCategoria.value
-      alternaModal(modalEditarCategoria)
-      imprimeListaCategorias(listaCategorias)
-      imprimeListaDespesas(listaDespesas)
 
-  })
+function editaCategoria(id) {
+  btnSalvarEdicao.setAttribute('onclick', `salvarEdicao(${id})`)
+  alternaModal(modalEditarCategoria);
+  inputEditarCategoria.value = listaCategorias.find(
+    (categoria) => categoria.id == id
+  ).nome;
+  escModal(modalEditarCategoria);
+}
+
+function salvarEdicao(id) {
+  listaCategorias.map((categoria) => {
+    if (categoria.id == id) {
+      categoria.nome = inputEditarCategoria.value;
+
+    }
+  });
+  console.log(listaCategorias);
+  alternaModal(modalEditarCategoria);
+
+  imprimeListaCategorias(listaCategorias);
+  // imprimeListaDespesas(listaDespesas);
 }
 //Chamadas de funções
 
@@ -236,7 +242,6 @@ btnSalvarCategoria.addEventListener("click", function () {
   imprimeListaCategorias(listaCategorias);
   alternaModal(modalAddCategorias);
 });
-fadeEditarCategoria.addEventListener('click', function(){
-  alternaModal(modalEditarCategoria)
-})
-
+fadeEditarCategoria.addEventListener("click", function () {
+  alternaModal(modalEditarCategoria);
+});
