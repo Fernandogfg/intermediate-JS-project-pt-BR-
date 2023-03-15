@@ -72,3 +72,9 @@
   cursor: pointer;
   color: white;
 }
+#lista-categorias .container-btns {
+  justify-content: left;
+}
+#lista-categorias button {
+  font-size: small;
+}

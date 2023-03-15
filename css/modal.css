@@ -18,7 +18,7 @@
 }
 .modal h3 {
   justify-self: center;
-  color:#2196F3;
+  color: #2196f3;
 }
 .borrao {
   background-color: rgba(0, 0, 0, 0.666);
@@ -28,4 +28,8 @@
   height: 100%;
   width: 100%;
   backdrop-filter: blur(2px);
+}
+h3 {
+  justify-self: center;
+  color: #2196f3;
 }
