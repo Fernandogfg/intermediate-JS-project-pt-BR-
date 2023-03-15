@@ -3,17 +3,23 @@ let headerBtnCategorias = document.getElementById("header-btn-categorias");
 let modalDespesas = document.getElementById("modal-add-despesas");
 let containerCategorias = document.getElementById("categorias");
 let modalAddCategorias = document.getElementById("add-categorias");
+let modalEditarCategoria = document.getElementById('editar-categoria')
+let tabelaDespesas = document.getElementById("tabela-despesas");
+let containerLista = document.getElementById("container-lista");
+let tabelaCategorias = document.getElementById("lista-categorias");
+let fadeDespesas = document.getElementById("fade-despesas");
+let fadeAddCategorias = document.getElementById("fade-add-categorias");
+let fadeEditarCategoria = document.getElementById('fade-editar-categorias')
 let btnAddDespesa = document.getElementById("btn-add-despesa");
 let btnAddCategoria = document.getElementById("btn-add-categoria");
 let btnSalvarDespesa = document.getElementById("btn-salvar-despesa");
 let btnCancelarDespesa = document.getElementById("btn-cancelar-despesa");
 let btnSalvarCategoria = document.getElementById("btn-salvar-categoria");
 let btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
-let fadeDespesas = document.getElementById("fade-despesas");
-let fadeAddCategorias = document.getElementById("fade-add-categorias");
-let tabelaDespesas = document.getElementById("tabela-despesas");
-let containerLista = document.getElementById("container-lista");
-let tabelaCategorias = document.getElementById("lista-categorias");
+let btnSalvarEdicao = document.getElementById('btn-salvar-edicao')
+let btnCancelarEdicao = document.getElementById('btn-cancelar-edicao')
+let inputAddCategoria = document.getElementById("input-add-categoria");
+let inputEditarCategoria = document.getElementById('input-editar-categoria')
 let listaCategorias = [
   {
     nome: "Alimentação",
@@ -103,30 +109,20 @@ let listaDespesas = [
 
 //criação de funções
 
-function identificaCategoria (id){
-  let nomecategoria = listaCategorias.filter(categoria => categoria.id == id)
-  return nomecategoria[0].nome
+function identificaCategoria(id) {
+  let nomecategoria = listaCategorias.filter((categoria) => categoria.id == id);
+  return nomecategoria[0].nome;
 }
-console.log(identificaCategoria("1010232324"))
+
 function alternaStatus(i) {
   listaDespesas[i].status = !listaDespesas[i].status;
   imprimeListaDespesas(listaDespesas);
 }
 
-function imprimeListaCategorias(lista) {
-  tabelaCategorias.innerHTML = "";
-  for (let i = 0; i < lista.length; i++) {
-    tabelaCategorias.innerHTML += `<tr>
-    <td>${lista[i].id}</td>
-    <td>${lista[i].nome}</td>
-    <td class="container-btns"><button class="btn">EDITAR</button><button class="btn-vermelho">EXCLUIR</button></td>
-    </tr>`;
-  }
-}
 
 function imprimeListaDespesas(lista) {
   tabelaDespesas.innerHTML = "";
-
+  
   for (let i = 0; i < lista.length; i++) {
     tabelaDespesas.innerHTML += `<tr class= '${
       lista[i].status ? "pago" : "pendente"
@@ -138,12 +134,23 @@ function imprimeListaDespesas(lista) {
     <td><button onclick='alternaStatus(${i})'>${
       lista[i].status ? "PAGO" : "PENDENTE"
     }</button></td>
-  </tr>`;
+    </tr>`;
   }
 }
 
 function alternaModal(modal) {
   modal.classList.toggle("inativo");
+}
+
+function imprimeListaCategorias(lista) {
+  tabelaCategorias.innerHTML = "";
+  for (let i = 0; i < lista.length; i++) {
+    tabelaCategorias.innerHTML += `<tr>
+    <td>${lista[i].id}</td>
+    <td>${lista[i].nome}</td>
+    <td class="container-btns"><button class="btn" onclick='editaCategoria(${i})'>EDITAR</button><button onclick='removeElemento(${i})' class="btn-vermelho">EXCLUIR</button></td>
+    </tr>`;
+  }
 }
 
 function escModal(modal) {
@@ -156,10 +163,48 @@ function escModal(modal) {
   });
 }
 
+function gerarIdCategoria() {
+  return Math.round(Date.now() / 1000);
+}
+
+function addCategoria() {
+  let categoria = {
+    nome: "",
+    id: gerarIdCategoria(),
+  };
+  categoria.nome = inputAddCategoria.value;
+  listaCategorias.push(categoria);
+}
+
+function removeElemento(i) {
+  listaCategorias.splice(i, 1);
+  imprimeListaCategorias(listaCategorias);
+}
+function editaCategoria(i){
+  alternaModal(modalEditarCategoria)
+  inputEditarCategoria.value = listaCategorias[i].nome
+  fadeEditarCategoria.addEventListener('click', function(){
+    alternaModal(modalEditarCategoria)
+  })
+  escModal(modalEditarCategoria)
+  salvarEdicao(i)
+  
+}
+function salvarEdicao(i){
+  if(inputEditarCategoria.value !== ''){
+    btnSalvarEdicao.addEventListener('click', function(){
+      let nome = inputEditarCategoria.value
+      listaCategorias[i].nome = nome
+      alternaModal(modalEditarCategoria)
+      imprimeListaCategorias(listaCategorias)
+      imprimeListaDespesas(listaDespesas)
+    })
+  }
+}
 //Chamadas de funções
 
 imprimeListaDespesas(listaDespesas);
-imprimeListaCategorias(listaCategorias)
+imprimeListaCategorias(listaCategorias);
 
 headerBtnCategorias.addEventListener("click", function () {
   if (containerCategorias.classList.contains("inativo")) {
@@ -189,6 +234,9 @@ headerBtnDespesas.addEventListener("click", function () {
   });
 });
 
-function gerarIdCategoria (){
-  listaCategorias[listaCategorias.length-1].id
-}
+btnSalvarCategoria.addEventListener("click", function () {
+  addCategoria();
+  imprimeListaCategorias(listaCategorias);
+  alternaModal(modalAddCategorias);
+});
+
