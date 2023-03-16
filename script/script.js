@@ -20,6 +20,10 @@ let btnSalvarEdicao = document.getElementById("btn-salvar-edicao");
 let btnCancelarEdicao = document.getElementById("btn-cancelar-edicao");
 let inputAddCategoria = document.getElementById("input-add-categoria");
 let inputEditarCategoria = document.getElementById("input-editar-categoria");
+let inputFiltroDespesa = document.getElementById("input-filtro-despesa");
+let btnFiltrarDespesas = document.getElementById("btn-filtrar-despesas");
+let inputFiltroCategorias = document.getElementById("input-filtro-categorias");
+let btnFiltrarCategorias = document.getElementById("btn-filtrar-categorias");
 let listaCategorias = [
   {
     nome: "Alimentação",
@@ -182,12 +186,12 @@ function removeCategoria(i) {
   imprimeListaCategorias(listaCategorias);
   // imprimeListaDespesas(listaDespesas)
 }
-function removeDespesa (i){
-  listaDespesas.splice(i, 1)
-  imprimeListaDespesas(listaDespesas)
+function removeDespesa(i) {
+  listaDespesas.splice(i, 1);
+  imprimeListaDespesas(listaDespesas);
 }
 function editaCategoria(id) {
-  btnSalvarEdicao.setAttribute('onclick', `salvarEdicao(${id})`)
+  btnSalvarEdicao.setAttribute("onclick", `salvarEdicao(${id})`);
   alternaModal(modalEditarCategoria);
   inputEditarCategoria.value = listaCategorias.find(
     (categoria) => categoria.id == id
@@ -199,14 +203,52 @@ function salvarEdicao(id) {
   listaCategorias.map((categoria) => {
     if (categoria.id == id) {
       categoria.nome = inputEditarCategoria.value;
-
     }
   });
-  console.log(listaCategorias);
   alternaModal(modalEditarCategoria);
-
   imprimeListaCategorias(listaCategorias);
   imprimeListaDespesas(listaDespesas);
+}
+
+function filtrarDespesas() {
+  let listaFiltrada = listaDespesas.filter((despesa) => {
+    if (
+      despesa.dataVencimento.includes(inputFiltroDespesa.value) ||
+      despesa.despesa.toLocaleLowerCase().includes(inputFiltroDespesa.value.toLocaleLowerCase()) ||
+      identificaCategoria(despesa.categoria)
+        .toLocaleLowerCase()
+        .includes(inputFiltroDespesa.value.toLocaleLowerCase()) ||
+      despesa.valor.includes(inputFiltroDespesa.value)
+    ) {
+      let novaDespesa = {
+        dataVencimento: despesa.dataVencimento,
+        despesa: despesa.despesa,
+        categoria: despesa.categoria,
+        valor: despesa.valor,
+        status: despesa.status,
+      };
+      return novaDespesa;
+    }
+  });
+
+  imprimeListaDespesas(listaFiltrada);
+}
+function filtrarCategorias() {
+  let listaFiltrada = listaCategorias.filter((categoria) => {
+    if (
+      categoria.nome
+        .toLocaleLowerCase()
+        .includes(inputFiltroCategorias.value.toLocaleLowerCase()) ||
+      categoria.id.includes(inputFiltroCategorias.value)
+    ) {
+      let novaCategoria = {
+        nome: categoria.nome,
+        id: categoria.id,
+      };
+      return novaCategoria;
+    }
+  });
+  imprimeListaCategorias(listaFiltrada);
 }
 //Chamadas de funções
 
@@ -248,4 +290,11 @@ btnSalvarCategoria.addEventListener("click", function () {
 });
 fadeEditarCategoria.addEventListener("click", function () {
   alternaModal(modalEditarCategoria);
+});
+
+btnFiltrarDespesas.addEventListener("click", function () {
+  filtrarDespesas();
+});
+btnFiltrarCategorias.addEventListener("click", function () {
+  filtrarCategorias();
 });
