@@ -132,7 +132,7 @@ function imprimeListaDespesas(lista) {
     <td>${lista[i].valor}</td>
     <td><button onclick='alternaStatus(${i})'>${
       lista[i].status ? "PAGO" : "PENDENTE"
-    }</button></td>
+    }</button><img onclick='removeDespesa(${i})' class='lixeira' src="../assets/icons/icons8-remover.svg"></td>
     </tr>`;
   }
 }
@@ -149,7 +149,7 @@ function imprimeListaCategorias(lista) {
     <td>${lista[i].nome}</td>
     <td class="container-btns">
     <button class="btn" onclick='editaCategoria(${lista[i].id})'>EDITAR</button>
-    <button onclick='removeElemento(${i})' class="btn-vermelho">EXCLUIR</button></td>
+    <button onclick='removeCategoria(${i})' class="btn-vermelho">EXCLUIR</button></td>
     </tr>`;
   }
 }
@@ -177,11 +177,15 @@ function addCategoria() {
   listaCategorias.push(categoria);
 }
 
-function removeElemento(i) {
+function removeCategoria(i) {
   listaCategorias.splice(i, 1);
   imprimeListaCategorias(listaCategorias);
+  // imprimeListaDespesas(listaDespesas)
 }
-
+function removeDespesa (i){
+  listaDespesas.splice(i, 1)
+  imprimeListaDespesas(listaDespesas)
+}
 function editaCategoria(id) {
   btnSalvarEdicao.setAttribute('onclick', `salvarEdicao(${id})`)
   alternaModal(modalEditarCategoria);
@@ -202,7 +206,7 @@ function salvarEdicao(id) {
   alternaModal(modalEditarCategoria);
 
   imprimeListaCategorias(listaCategorias);
-  // imprimeListaDespesas(listaDespesas);
+  imprimeListaDespesas(listaDespesas);
 }
 //Chamadas de funções
 
