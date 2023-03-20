@@ -129,16 +129,27 @@ function identificaCategoria(id) {
 }
 
 function identificaIndexDespesas(id) {
-  return listaDespesas.findIndex(despesa => despesa.id == id)
+  return listaDespesas.findIndex((despesa) => despesa.id == id);
 }
-function alternaStatus(i) {
-  listaDespesas[i].status = !listaDespesas[i].status;
-  imprimeListaDespesas(listaDespesas);
+function identificaIndexCategoria(id) {
+  return listaCategorias.findIndex((categoria) => categoria.id == id);
+}
+function alternaStatus(id) {
+  if (inputFiltroDespesa.value == "") {
+    let statusAlternado = listaDespesas.find((desp) => desp.id == id);
+    listaDespesas[listaDespesas.indexOf(statusAlternado)].status =
+      !listaDespesas[listaDespesas.indexOf(statusAlternado)].status;
+    imprimeListaDespesas(listaDespesas);
+  } else {
+    let statusAlternado = listaDespesas.find((desp) => desp.id == id);
+    listaDespesas[listaDespesas.indexOf(statusAlternado)].status =
+      !listaDespesas[listaDespesas.indexOf(statusAlternado)].status;
+    filtrarDespesas();
+  }
 }
 
 function imprimeListaDespesas(lista) {
   tabelaDespesas.innerHTML = "";
-
   for (let i = 0; i < lista.length; i++) {
     tabelaDespesas.innerHTML += `<tr class= '${
       lista[i].status ? "pago" : "pendente"
@@ -147,9 +158,11 @@ function imprimeListaDespesas(lista) {
     <td>${lista[i].despesa}</td>
     <td>${identificaCategoria(lista[i].categoria)}</td>
     <td>${lista[i].valor}</td>
-    <td><button onclick='alternaStatus(${i})'>${
+    <td><button onclick='alternaStatus(${lista[i].id})'>${
       lista[i].status ? "PAGO" : "PENDENTE"
-    }</button><img onclick='removeDespesa(${lista[i].id})' class='lixeira' src="../assets/icons/icons8-remover.svg"></td>
+    }</button><img onclick='removeDespesa(${
+      lista[i].id
+    })' class='lixeira' src="../assets/icons/icons8-remover.svg"></td>
     </tr>`;
   }
 }
@@ -166,7 +179,7 @@ function imprimeListaCategorias(lista) {
     <td>${lista[i].nome}</td>
     <td class="container-btns">
     <button class="btn" onclick='editaCategoria(${lista[i].id})'>EDITAR</button>
-    <button onclick='removeCategoria(${i})' class="btn-vermelho">EXCLUIR</button></td>
+    <button onclick='removeCategoria(${lista[i].id})' class="btn-vermelho">EXCLUIR</button></td>
     </tr>`;
   }
 }
@@ -194,14 +207,28 @@ function addCategoria() {
   listaCategorias.push(categoria);
 }
 
-function removeCategoria(i) {
-  listaCategorias.splice(i, 1);
-  imprimeListaCategorias(listaCategorias);
-  // imprimeListaDespesas(listaDespesas)
+function removeCategoria(id) {
+  if (inputFiltroCategorias.value == "") {
+    let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
+    listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
+    imprimeListaCategorias(listaCategorias);
+  } else {
+    let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
+    listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
+    filtrarCategorias();
+  }
 }
+
 function removeDespesa(id) {
-  listaDespesas.splice(identificaIndexDespesas(id), 1);
-  imprimeListaDespesas(listaDespesas);
+  if (inputFiltroDespesa.value == "") {
+    let despesaRemovida = listaDespesas.find((desp) => desp.id == id);
+    listaDespesas.splice(listaDespesas.indexOf(despesaRemovida), 1);
+    imprimeListaDespesas(listaDespesas);
+  } else {
+    let despesaRemovida = listaDespesas.find((desp) => desp.id == id);
+    listaDespesas.splice(listaDespesas.indexOf(despesaRemovida), 1);
+    filtrarDespesas();
+  }
 }
 function editaCategoria(id) {
   btnSalvarEdicao.setAttribute("onclick", `salvarEdicao(${id})`);
@@ -245,7 +272,6 @@ function filtrarDespesas() {
       return novaDespesa;
     }
   });
-
   imprimeListaDespesas(listaFiltrada);
 }
 function filtrarCategorias() {
@@ -313,3 +339,15 @@ btnFiltrarDespesas.addEventListener("click", function () {
 btnFiltrarCategorias.addEventListener("click", function () {
   filtrarCategorias();
 });
+inputFiltroDespesa.addEventListener('keydown', function(el){
+  if(el.key == 'Enter'){
+    filtrarDespesas()
+  }
+})
+
+
+inputFiltroCategorias.addEventListener('keydown', function(el){
+  if(el.key == 'Enter'){
+    filtrarCategorias()
+  }
+})
