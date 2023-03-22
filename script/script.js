@@ -105,30 +105,6 @@ let listaDespesas = [
     categoria: "1010232323",
     id: "6",
   },
-  {
-    dataVencimento: "07/08/2022",
-    despesa: "compras",
-    valor: "79.2",
-    status: false,
-    categoria: "1010232322",
-    id: "7",
-  },
-  {
-    dataVencimento: "10/10/2022",
-    despesa: "cinema",
-    valor: "50.0",
-    status: true,
-    categoria: "1010232323",
-    id: "8",
-  },
-  {
-    dataVencimento: "11/03/2023",
-    despesa: "luz",
-    valor: "150.00",
-    status: true,
-    categoria: "1010232324",
-    id: "9",
-  },
 ];
 
 //criação de funções
@@ -161,21 +137,26 @@ function alternaStatus(id) {
 }
 
 function imprimeListaDespesas(lista) {
-  tabelaDespesas.innerHTML = "";
-  for (let i = 0; i < lista.length; i++) {
-    tabelaDespesas.innerHTML += `<tr class= '${
-      lista[i].status ? "pago" : "pendente"
-    }'>
+  if (lista.length == 0) {
+    tabelaDespesas.innerHTML =
+      "<tr><td>-</td><td>-</td><td>-</td><td>-</td></tr>";
+  } else {
+    tabelaDespesas.innerHTML = "";
+    for (let i = 0; i < lista.length; i++) {
+      tabelaDespesas.innerHTML += `<tr class= '${
+        lista[i].status ? "pago" : "pendente"
+      }'>
     <td>${lista[i].dataVencimento}</td>
     <td>${lista[i].despesa}</td>
     <td>${identificaCategoria(lista[i].categoria)}</td>
     <td>R$ ${Number(lista[i].valor).toFixed(2)}</td>
     <td><button onclick='alternaStatus(${lista[i].id})'>${
-      lista[i].status ? "PAGO" : "PENDENTE"
-    }</button><img onclick='removeDespesa(${
-      lista[i].id
-    })' class='lixeira' src="../assets/icons/icons8-remover.svg"></td>
+        lista[i].status ? "PAGO" : "PENDENTE"
+      }</button><img onclick='removeDespesa(${
+        lista[i].id
+      })' class='lixeira' src="../assets/icons/icons8-remover.svg"></td>
     </tr>`;
+    }
   }
 }
 
@@ -389,12 +370,6 @@ function contagemAtrasadas() {
 }
 
 function contagemPagar() {
-  // let valorPagar = listaDespesas.reduce(function (acc, desp) {
-  //   if (!desp.status) {
-  //     return acc += Number(desp.valor);
-  //   }
-  // }, 0);
-  // console.log(valorPagar);
   let valor = 0;
   for (let i = 0; i < listaDespesas.length; i++) {
     if (!listaDespesas[i].status) {
@@ -405,12 +380,6 @@ function contagemPagar() {
 }
 
 function contagemPago() {
-  // let valorPagar = listaDespesas.reduce(function (acc, desp) {
-  //   if (!desp.status) {
-  //     return acc += Number(desp.valor);
-  //   }
-  // }, 0);
-  // console.log(valorPagar);
   let valor = 0;
   for (let i = 0; i < listaDespesas.length; i++) {
     if (listaDespesas[i].status) {

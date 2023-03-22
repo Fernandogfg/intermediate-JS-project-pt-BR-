@@ -4,10 +4,12 @@
   border: 0;
   border-bottom: 1px black solid;
   font-size: larger;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 32px;
 }
 .format-inputs input::placeholder {
   font-size: medium;
+  font-family: 'Roboto', sans-serif;
 }
 .format-inputs label {
   font-size: smaller;
@@ -35,7 +37,7 @@
   border-color: #fff transparent transparent transparent;
 }
 #data-vencimento {
-  width: 38ch;
+  width: 30ch;
 }
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

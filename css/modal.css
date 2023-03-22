@@ -15,6 +15,7 @@
   transform: translate(-50%, -50%);
   padding: 32px 64px;
   border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
 }
 .modal h3 {
   justify-self: center;
