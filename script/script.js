@@ -32,6 +32,8 @@ let qntAtrasadas = document.getElementById("qnt-atrasado");
 let qntPagar = document.getElementById("qnt-pagar");
 let qntPago = document.getElementById("qnt-pago");
 let msgErroCat = document.getElementById("msg-erro-cat");
+let msgErroAddDespesa = document.getElementById("msg-erro-add-despesa");
+let msgErroAddCategoria = document.getElementById("msg-erro-add-categoria");
 let listaCategorias = [
   {
     nome: "Alimentação",
@@ -223,8 +225,15 @@ function addCategoria() {
     nome: "",
     id: gerarId(),
   };
-  categoria.nome = inputAddCategoria.value;
-  listaCategorias.push(categoria);
+  if (inputAddCategoria.value == "") {
+    msgErroAddCategoria.classList.toggle("inativo");
+    setTimeout(() => msgErroAddCategoria.classList.toggle("inativo"), 3000);
+  } else {
+    categoria.nome = inputAddCategoria.value;
+    listaCategorias.push(categoria);
+    imprimeListaCategorias(listaCategorias);
+    alternaModal(modalAddCategorias);
+  }
 }
 
 function listarCategorias() {
@@ -241,6 +250,8 @@ function addDespesa() {
     inputNomeDespesa.value == "" ||
     inputValorDespesa.value == ""
   ) {
+    msgErroAddDespesa.classList.toggle("inativo");
+    setTimeout(() => msgErroAddDespesa.classList.toggle("inativo"), 3000);
   } else {
     let novaDespesa = {
       dataVencimento: formatarData(dataVencimento.value),
@@ -270,15 +281,13 @@ function removeCategoria(id) {
       filtrarCategorias();
     }
   } else {
-    clearInterval()
     msgErroCat.classList.toggle("inativo");
     msgErroCat.innerHTML = `Descupe mas ainda há despesas relacionadas a categoria "${identificaCategoria(
       id
     )}"`;
-    setInterval(() => {
-      msgErroCat.classList.toggle('inativo')
+    setTimeout(() => {
+      msgErroCat.classList.toggle("inativo");
     }, 3000);
-    clearInterval()
   }
 }
 
@@ -451,8 +460,6 @@ headerBtnDespesas.addEventListener("click", function () {
 
 btnSalvarCategoria.addEventListener("click", function () {
   addCategoria();
-  imprimeListaCategorias(listaCategorias);
-  alternaModal(modalAddCategorias);
   inputAddCategoria.value = "";
 });
 fadeEditarCategoria.addEventListener("click", function () {
@@ -480,9 +487,20 @@ inputFiltroCategorias.addEventListener("keydown", function (el) {
 btnAddDespesa.addEventListener("click", function () {
   listarCategorias();
   inputNomeDespesa.value = "";
-  inputValorDespesa = "";
+  dataVencimento.value = "";
+  buscaCategoria.value = "";
+  inputValorDespesa.value = "";
 });
 // btnSalvarDespesa
 btnSalvarDespesa.addEventListener("click", function () {
   addDespesa();
+});
+btnCancelarCategoria.addEventListener("click", function () {
+  alternaModal(modalAddCategorias);
+});
+btnCancelarDespesa.addEventListener("click", function () {
+  alternaModal(modalDespesas);
+});
+btnCancelarEdicao.addEventListener("click", function () {
+  alternaModal(modalEditarCategoria);
 });
