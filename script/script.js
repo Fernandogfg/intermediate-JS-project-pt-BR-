@@ -1,5 +1,6 @@
 let headerBtnDespesas = document.getElementById("header-btn-despesas");
 let headerBtnCategorias = document.getElementById("header-btn-categorias");
+
 let modalDespesas = document.getElementById("modal-add-despesas");
 let containerCategorias = document.getElementById("categorias");
 let modalAddCategorias = document.getElementById("add-categorias");
@@ -10,6 +11,13 @@ let tabelaCategorias = document.getElementById("lista-categorias");
 let fadeDespesas = document.getElementById("fade-despesas");
 let fadeAddCategorias = document.getElementById("fade-add-categorias");
 let fadeEditarCategoria = document.getElementById("fade-editar-categorias");
+let qntPago = document.getElementById("qnt-pago");
+let qntAtrasadas = document.getElementById("qnt-atrasado");
+let qntPagar = document.getElementById("qnt-pagar");
+let msgErroCat = document.getElementById("msg-erro-cat");
+let msgErroAddDespesa = document.getElementById("msg-erro-add-despesa");
+let msgErroAddCategoria = document.getElementById("msg-erro-add-categoria");
+
 let btnAddDespesa = document.getElementById("btn-add-despesa");
 let btnAddCategoria = document.getElementById("btn-add-categoria");
 let btnSalvarDespesa = document.getElementById("btn-salvar-despesa");
@@ -18,22 +26,17 @@ let btnSalvarCategoria = document.getElementById("btn-salvar-categoria");
 let btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 let btnSalvarEdicao = document.getElementById("btn-salvar-edicao");
 let btnCancelarEdicao = document.getElementById("btn-cancelar-edicao");
+let btnFiltrarDespesas = document.getElementById("btn-filtrar-despesas");
+let btnFiltrarCategorias = document.getElementById("btn-filtrar-categorias");
+
 let inputAddCategoria = document.getElementById("input-add-categoria");
 let inputEditarCategoria = document.getElementById("input-editar-categoria");
 let inputFiltroDespesa = document.getElementById("input-filtro-despesa");
-let btnFiltrarDespesas = document.getElementById("btn-filtrar-despesas");
 let inputFiltroCategorias = document.getElementById("input-filtro-categorias");
-let btnFiltrarCategorias = document.getElementById("btn-filtrar-categorias");
 let buscaCategoria = document.getElementById("busca-categoria");
 let dataVencimento = document.getElementById("data-vencimento");
 let inputNomeDespesa = document.getElementById("nome-despesa");
 let inputValorDespesa = document.getElementById("valor-despesa");
-let qntAtrasadas = document.getElementById("qnt-atrasado");
-let qntPagar = document.getElementById("qnt-pagar");
-let qntPago = document.getElementById("qnt-pago");
-let msgErroCat = document.getElementById("msg-erro-cat");
-let msgErroAddDespesa = document.getElementById("msg-erro-add-despesa");
-let msgErroAddCategoria = document.getElementById("msg-erro-add-categoria");
 let listaCategorias = [
   {
     nome: "Alimentação",
