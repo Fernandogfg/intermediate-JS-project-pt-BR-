@@ -12,10 +12,13 @@
 }
 #pago {
   border-bottom: 4px green solid;
+  color: green;
 }
 #pagar {
   border-bottom: 4px red solid;
+  color: red;
 }
 #atrasado {
   border-bottom: 4px rgb(255, 174, 0) solid;
+  color: rgb(255, 174, 0);
 }

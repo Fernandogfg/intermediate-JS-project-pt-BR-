@@ -24,6 +24,14 @@ let inputFiltroDespesa = document.getElementById("input-filtro-despesa");
 let btnFiltrarDespesas = document.getElementById("btn-filtrar-despesas");
 let inputFiltroCategorias = document.getElementById("input-filtro-categorias");
 let btnFiltrarCategorias = document.getElementById("btn-filtrar-categorias");
+let buscaCategoria = document.getElementById("busca-categoria");
+let dataVencimento = document.getElementById("data-vencimento");
+let inputNomeDespesa = document.getElementById("nome-despesa");
+let inputValorDespesa = document.getElementById("valor-despesa");
+let qntAtrasadas = document.getElementById("qnt-atrasado");
+let qntPagar = document.getElementById("qnt-pagar");
+let qntPago = document.getElementById("qnt-pago");
+let msgErroCat = document.getElementById("msg-erro-cat");
 let listaCategorias = [
   {
     nome: "Alimentação",
@@ -140,11 +148,13 @@ function alternaStatus(id) {
     listaDespesas[listaDespesas.indexOf(statusAlternado)].status =
       !listaDespesas[listaDespesas.indexOf(statusAlternado)].status;
     imprimeListaDespesas(listaDespesas);
+    contagemDespesas();
   } else {
     let statusAlternado = listaDespesas.find((desp) => desp.id == id);
     listaDespesas[listaDespesas.indexOf(statusAlternado)].status =
       !listaDespesas[listaDespesas.indexOf(statusAlternado)].status;
     filtrarDespesas();
+    contagemDespesas();
   }
 }
 
@@ -157,7 +167,7 @@ function imprimeListaDespesas(lista) {
     <td>${lista[i].dataVencimento}</td>
     <td>${lista[i].despesa}</td>
     <td>${identificaCategoria(lista[i].categoria)}</td>
-    <td>${lista[i].valor}</td>
+    <td>R$ ${Number(lista[i].valor).toFixed(2)}</td>
     <td><button onclick='alternaStatus(${lista[i].id})'>${
       lista[i].status ? "PAGO" : "PENDENTE"
     }</button><img onclick='removeDespesa(${
@@ -194,28 +204,81 @@ function escModal(modal) {
   });
 }
 
-function gerarIdCategoria() {
+function gerarId() {
   return Math.round(Date.now() / 1000);
+}
+
+function formatarData(data = "") {
+  let dia = data.slice(8);
+  console.log(dia);
+  let mes = data.slice(5, 7);
+  console.log(mes);
+  let ano = data.slice(0, 4);
+  console.log(ano);
+  return `${dia}/${mes}/${ano}`;
 }
 
 function addCategoria() {
   let categoria = {
     nome: "",
-    id: gerarIdCategoria(),
+    id: gerarId(),
   };
   categoria.nome = inputAddCategoria.value;
   listaCategorias.push(categoria);
 }
 
-function removeCategoria(id) {
-  if (inputFiltroCategorias.value == "") {
-    let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
-    listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
-    imprimeListaCategorias(listaCategorias);
+function listarCategorias() {
+  buscaCategoria.innerHTML = `<option value=""></option>`;
+  for (let i = 0; i < listaCategorias.length; i++) {
+    buscaCategoria.innerHTML += `<option value="${listaCategorias[i].id}">${listaCategorias[i].nome}</option>`;
+  }
+}
+
+function addDespesa() {
+  if (
+    buscaCategoria.value == "" ||
+    dataVencimento.value == "" ||
+    inputNomeDespesa.value == "" ||
+    inputValorDespesa.value == ""
+  ) {
   } else {
-    let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
-    listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
-    filtrarCategorias();
+    let novaDespesa = {
+      dataVencimento: formatarData(dataVencimento.value),
+      despesa: inputNomeDespesa.value,
+      valor: inputValorDespesa.value,
+      status: false,
+      categoria: buscaCategoria.value,
+      id: gerarId(),
+    };
+    listaDespesas.push(novaDespesa);
+    imprimeListaDespesas(listaDespesas);
+    alternaModal(modalDespesas);
+    contagemDespesas();
+  }
+}
+
+function removeCategoria(id) {
+  let catErro = listaDespesas.filter((despesa) => despesa.categoria == id);
+  if (catErro.length == 0) {
+    if (inputFiltroCategorias.value == "") {
+      let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
+      listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
+      imprimeListaCategorias(listaCategorias);
+    } else {
+      let categoriaRemovida = listaCategorias.find((cat) => cat.id == id);
+      listaCategorias.splice(listaCategorias.indexOf(categoriaRemovida), 1);
+      filtrarCategorias();
+    }
+  } else {
+    clearInterval()
+    msgErroCat.classList.toggle("inativo");
+    msgErroCat.innerHTML = `Descupe mas ainda há despesas relacionadas a categoria "${identificaCategoria(
+      id
+    )}"`;
+    setInterval(() => {
+      msgErroCat.classList.toggle('inativo')
+    }, 3000);
+    clearInterval()
   }
 }
 
@@ -224,10 +287,12 @@ function removeDespesa(id) {
     let despesaRemovida = listaDespesas.find((desp) => desp.id == id);
     listaDespesas.splice(listaDespesas.indexOf(despesaRemovida), 1);
     imprimeListaDespesas(listaDespesas);
+    contagemDespesas();
   } else {
     let despesaRemovida = listaDespesas.find((desp) => desp.id == id);
     listaDespesas.splice(listaDespesas.indexOf(despesaRemovida), 1);
     filtrarDespesas();
+    contagemDespesas();
   }
 }
 function editaCategoria(id) {
@@ -291,8 +356,68 @@ function filtrarCategorias() {
   });
   imprimeListaCategorias(listaFiltrada);
 }
-//Chamadas de funções
+function contagemAtrasadas() {
+  let hoje = new Date();
+  let dia = String(hoje.getDate()).padStart(2, "0");
+  let mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  let ano = String(hoje.getFullYear());
+  let atrasadas = listaDespesas.filter((despesa) => {
+    if (!despesa.status) {
+      if (Number(despesa.dataVencimento.slice(6)) < Number(ano)) {
+        return despesa;
+      } else if (Number(despesa.dataVencimento.slice(6)) == Number(ano)) {
+        if (Number(despesa.dataVencimento.slice(3, 5)) < Number(mes)) {
+          return despesa;
+        } else if (Number(despesa.dataVencimento.slice(3, 5)) == Number(mes)) {
+          if (Number(despesa.dataVencimento.slice(0, 2)) < Number(dia)) {
+            return despesa;
+          }
+        }
+      }
+    }
+  });
+  qntAtrasadas.innerHTML = `${atrasadas.length}`;
+}
 
+function contagemPagar() {
+  // let valorPagar = listaDespesas.reduce(function (acc, desp) {
+  //   if (!desp.status) {
+  //     return acc += Number(desp.valor);
+  //   }
+  // }, 0);
+  // console.log(valorPagar);
+  let valor = 0;
+  for (let i = 0; i < listaDespesas.length; i++) {
+    if (!listaDespesas[i].status) {
+      valor += Number(listaDespesas[i].valor);
+    }
+  }
+  qntPagar.innerHTML = `${valor.toFixed(2)}`;
+}
+
+function contagemPago() {
+  // let valorPagar = listaDespesas.reduce(function (acc, desp) {
+  //   if (!desp.status) {
+  //     return acc += Number(desp.valor);
+  //   }
+  // }, 0);
+  // console.log(valorPagar);
+  let valor = 0;
+  for (let i = 0; i < listaDespesas.length; i++) {
+    if (listaDespesas[i].status) {
+      valor += Number(listaDespesas[i].valor);
+    }
+  }
+  qntPago.innerHTML = `R$ ${valor.toFixed(2)}`;
+}
+function contagemDespesas() {
+  contagemAtrasadas();
+  contagemPagar();
+  contagemPago();
+}
+
+//Chamadas de funções
+contagemDespesas();
 imprimeListaDespesas(listaDespesas);
 imprimeListaCategorias(listaCategorias);
 
@@ -328,6 +453,7 @@ btnSalvarCategoria.addEventListener("click", function () {
   addCategoria();
   imprimeListaCategorias(listaCategorias);
   alternaModal(modalAddCategorias);
+  inputAddCategoria.value = "";
 });
 fadeEditarCategoria.addEventListener("click", function () {
   alternaModal(modalEditarCategoria);
@@ -339,15 +465,24 @@ btnFiltrarDespesas.addEventListener("click", function () {
 btnFiltrarCategorias.addEventListener("click", function () {
   filtrarCategorias();
 });
-inputFiltroDespesa.addEventListener('keydown', function(el){
-  if(el.key == 'Enter'){
-    filtrarDespesas()
+inputFiltroDespesa.addEventListener("keydown", function (el) {
+  if (el.key == "Enter") {
+    filtrarDespesas();
   }
-})
+});
 
-
-inputFiltroCategorias.addEventListener('keydown', function(el){
-  if(el.key == 'Enter'){
-    filtrarCategorias()
+inputFiltroCategorias.addEventListener("keydown", function (el) {
+  if (el.key == "Enter") {
+    filtrarCategorias();
   }
-})
+});
+
+btnAddDespesa.addEventListener("click", function () {
+  listarCategorias();
+  inputNomeDespesa.value = "";
+  inputValorDespesa = "";
+});
+// btnSalvarDespesa
+btnSalvarDespesa.addEventListener("click", function () {
+  addDespesa();
+});

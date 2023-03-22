@@ -35,3 +35,6 @@ tbody td:last-child {
 .lixeira {
   cursor: pointer;
 }
+#cat-container {
+  display: grid;
+}

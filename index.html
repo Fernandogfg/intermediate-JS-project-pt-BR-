@@ -66,11 +66,9 @@
             <h3>Adicionar Despesa</h3>
 
             <label for="busca-categoria">Categoria</label>
-            <input
-              type="text"
-              id="busca-categoria"
-              placeholder="Busque a categoria"
-            />
+            <select id="busca-categoria">
+              <option value=""></option>
+            </select>
             <label for="data-vencimento">Data de Vencimento</label>
             <input type="date" id="data-vencimento" placeholder="dd/mm/aaaa" />
 
@@ -82,9 +80,10 @@
             />
             <label for="valor-despesa">Valor</label>
             <input
-              type="text"
+              type="number"
               id="valor-despesa"
               placeholder="Valor da despesa"
+              step="any"
             />
             <div class="container-btns">
               <button class="btn" id="btn-salvar-despesa">Salvar</button>
@@ -97,12 +96,13 @@
       </section>
       <section class="inativo col-8" id="categorias">
         <div class="format-inputs">
-          <div>
-            <h3>Categorias</h3>
-            <label for="input-filtro-categorias">Filtrar</label>
-            <br />
-            <input type="text" id="input-filtro-categorias" />
-            <button id="btn-filtrar-categorias" class="btn">Filtrar</button>
+          <h3>Categorias</h3>
+          <label for="input-filtro-categorias">Filtrar</label>
+          <br />
+          <input type="text" id="input-filtro-categorias" />
+          <button id="btn-filtrar-categorias" class="btn">Filtrar</button>
+          <div id="cat-container">
+            <div class="msg inativo" id="msg-erro-cat"><p>deu Erro</p></div>
             <table class="lista">
               <thead>
                 <tr>

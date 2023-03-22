@@ -6,6 +6,7 @@
 @import url(inputs.css);
 @import url(btn.css);
 @import url(modal.css);
+@import url(msg.css);
 
 body {
   padding: 0 0 64px 0;
