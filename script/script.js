@@ -120,9 +120,11 @@ function identificaCategoria(id) {
 function identificaIndexDespesas(id) {
   return listaDespesas.findIndex((despesa) => despesa.id == id);
 }
+
 function identificaIndexCategoria(id) {
   return listaCategorias.findIndex((categoria) => categoria.id == id);
 }
+
 function alternaStatus(id) {
   if (inputFiltroDespesa.value == "") {
     let statusAlternado = listaDespesas.find((desp) => desp.id == id);
@@ -288,6 +290,7 @@ function removeDespesa(id) {
     contagemDespesas();
   }
 }
+
 function editaCategoria(id) {
   btnSalvarEdicao.setAttribute("onclick", `salvarEdicao(${id})`);
   alternaModal(modalEditarCategoria);
@@ -349,6 +352,7 @@ function filtrarCategorias() {
   });
   imprimeListaCategorias(listaFiltrada);
 }
+
 function contagemAtrasadas() {
   let hoje = new Date();
   let dia = String(hoje.getDate()).padStart(2, "0");
@@ -391,6 +395,7 @@ function contagemPago() {
   }
   qntPago.innerHTML = `R$ ${valor.toFixed(2)}`;
 }
+
 function contagemDespesas() {
   contagemAtrasadas();
   contagemPagar();
@@ -467,12 +472,15 @@ btnAddDespesa.addEventListener("click", function () {
 btnSalvarDespesa.addEventListener("click", function () {
   addDespesa();
 });
+
 btnCancelarCategoria.addEventListener("click", function () {
   alternaModal(modalAddCategorias);
 });
+
 btnCancelarDespesa.addEventListener("click", function () {
   alternaModal(modalDespesas);
 });
+
 btnCancelarEdicao.addEventListener("click", function () {
   alternaModal(modalEditarCategoria);
 });
